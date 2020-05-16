@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '_$gtn!gqcc-zxf2g38*2*90y=l9098+^cipv((oz8)cz!y&)=*'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'users',
+    'departments',
+    'courses'
 ]
 
 MIDDLEWARE = [
@@ -62,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -76,11 +81,11 @@ WSGI_APPLICATION = 'django_craiova.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'localhost',
-        'PORT': 3306,
-        'NAME': 'django_craiova',
-        'USER': 'root',
-        'PASSWORD': 'root',
+        'HOST': config('DB_HOST', 'localhost'),
+        'PORT': config('DB_PORT', 3306),
+        'NAME': config('DB_NAME', 'local_db_name'),
+        'USER': config('DB_USER', 'root'),
+        'PASSWORD': config('DB_PASS', 'root'),
     }
 }
 
@@ -125,3 +130,17 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+AUTH_USER_MODEL = 'users.MyUser'
+LOGIN_URL = 'users:login'
+
+
+MEDIA_ROOT = 'media/'
+MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_HOST_USER = config('EMAIL_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_PASS')
+EMAIL_PORT = config('EMAIL_PORT', 587)
+EMAIL_USE_TLS = config('EMAIL_TLS', True)

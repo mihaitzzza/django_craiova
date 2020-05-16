@@ -1,0 +1,7 @@
+<img src="/media/uploads/aaa2.jpg" style="width: 300px;" />
+
+<form method="post" action="{% url 'users:upload' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Upload" />
+</form>

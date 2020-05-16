@@ -1,0 +1,16 @@
+<p>You are authenticated as...</p>
+<p>First name: {{ user.first_name }}</p>
+<p>Last name: {{ user.last_name }}</p>
+<p>Email: {{ user.email }}</p>
+<a href="{% url 'users:profile_email' %}">Email me!</a>
+<a href="{% url 'users:logout' %}">Logout</a>
+
+<br/><br/><br/>
+
+<img style="width: 200px;" src="{{ MEDIA_URL }}{{ user.profile.avatar }}" />
+
+<form method="post" action="{% url 'users:profile' %}" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Change profile imagine" />
+</form>
