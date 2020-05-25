@@ -13,7 +13,7 @@ def inactivate_user(user, *args, **kwargs):
 
 
 set_inactive_user = Signal(providing_args=['user'])
-set_inactive_user.connect(inactivate_user)
+set_inactive_user.connect(inactivate_user, sender=settings.AUTH_USER_MODEL)
 
 
 def create_activation(sender, instance, created, *args, **kwargs):
