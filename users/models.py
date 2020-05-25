@@ -6,7 +6,7 @@ from activation.signals import set_inactive_user
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name):
+    def create_user(self, email, first_name, last_name, is_social_user=False):
         if not email:
             raise ValueError('User must have an e-mail address.')
 
@@ -16,7 +16,9 @@ class MyUserManager(BaseUserManager):
             last_name=last_name,
         )
 
-        set_inactive_user.send(sender=settings.AUTH_USER_MODEL, user=user)
+        if not is_social_user:
+            set_inactive_user.send(sender=settings.AUTH_USER_MODEL, user=user)
+
         user.save(using=self._db)
 
         return user

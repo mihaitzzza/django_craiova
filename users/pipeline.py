@@ -1,6 +1,23 @@
 from requests import request, HTTPError
 from django.core.files.base import ContentFile
 from uuid import uuid4
+from social_core.pipeline.user import USER_FIELDS
+
+
+def create_user(strategy, details, backend, user=None, *args, **kwargs):
+    if user:
+        return {'is_new': False}
+
+    fields = dict((name, kwargs.get(name, details.get(name))) for name in backend.setting('USER_FIELDS', USER_FIELDS))
+    fields['is_social_user'] = True
+
+    if not fields:
+        return
+
+    return {
+        'is_new': True,
+        'user': strategy.create_user(**fields)
+    }
 
 
 def profile_picture(backend, user, response, is_new, *args, **kwargs):
