@@ -1,7 +1,8 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from helpers.emails import send_register_email
+from activation.signals import set_inactive_user
 
 
 class MyUserManager(BaseUserManager):
@@ -15,10 +16,7 @@ class MyUserManager(BaseUserManager):
             last_name=last_name,
         )
 
-        generated_password = self.make_random_password()
-        send_register_email(first_name, last_name, email, generated_password)
-
-        user.set_password(generated_password)
+        set_inactive_user.send(sender=settings.AUTH_USER_MODEL, user=user)
         user.save(using=self._db)
 
         return user
@@ -48,3 +46,4 @@ class MyUser(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(MyUser, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='profile_images/')
+    # avatar = models.CharField(max_length=255, null=True)

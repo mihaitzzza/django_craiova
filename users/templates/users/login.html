@@ -3,3 +3,8 @@
     {{ form.as_p }}
     <input type="submit" value="Login" />
 </form>
+<br/>
+OR
+<br/>
+<p><a href="{% url 'social:begin' 'facebook' %}">Facebook</a></p>
+<p><a href="{% url 'social:begin' 'google-oauth2' %}">Google+</a></p>

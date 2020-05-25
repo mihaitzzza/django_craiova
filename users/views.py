@@ -97,11 +97,6 @@ def register(request):
 
 
 def upload(request):
-    print('**************************')
-    print(request.POST)
-    print(request.FILES)
-    print('**************************')
-
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
 
