@@ -1,0 +1,16 @@
+[{
+  "model": "library.Category",
+  "fields": {
+    "name": "Fixture Category 4"
+  }
+}, {
+  "model": "library.Category",
+  "fields": {
+    "name": "Fixture Category 5"
+  }
+}, {
+  "model": "library.Category",
+  "fields": {
+    "name": "Fixture Category 6"
+  }
+}]
