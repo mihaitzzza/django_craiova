@@ -14,16 +14,13 @@ def get_mocked_nicknames():
 
 def get_max_ids():
     all_categories = Category.objects.all()
-    category_max_id = all_categories.aggregate(Max('id'))['id__max']
-    category_max_id = 0
+    category_max_id = all_categories.aggregate(Max('id'))['id__max'] if len(all_categories) > 0 else 0
 
     all_subcategories = Subcategory.objects.all()
-    subcategory_max_id = all_subcategories.aggregate(Max('id'))['id__max']
-    subcategory_max_id = 0
+    subcategory_max_id = all_subcategories.aggregate(Max('id'))['id__max'] if len(all_subcategories) > 0 else 0
 
     all_books = Book.objects.all()
-    book_max_id = all_books.aggregate(Max('id'))['id__max']
-    book_max_id = 0
+    book_max_id = all_books.aggregate(Max('id'))['id__max'] if len(all_books) > 0 else 0
 
     return category_max_id, subcategory_max_id, book_max_id
 
