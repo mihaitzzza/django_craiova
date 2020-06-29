@@ -48,6 +48,7 @@ def profile(request):
 
             return HttpResponseRedirect(reverse('users:profile'))
     else:
+        request.session['cart_items'] = 12
         form = UploadProfileImage()
 
     return render(request, 'users/profile.html', {

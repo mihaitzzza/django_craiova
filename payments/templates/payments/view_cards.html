@@ -1,0 +1,20 @@
+<a href="{% url 'payments:add_card' %}">Add new card</a>
+{% if cards %}
+    <ul>
+        {% for card in cards %}
+            <li>
+                <p>{{ card.brand }}</p>
+                <p>**** **** **** {{ card.last4 }}</p>
+                <p>{{ card.exp_month }}/{{ card.exp_year }}</p>
+                <form method="post" action="{% url 'payments:delete_card' card.id %}">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" />
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>
+        No cards registered yet.
+    </p>
+{% endif %}
