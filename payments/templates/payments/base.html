@@ -1,0 +1,12 @@
+{% if messages %}
+<ul class="notifications">
+    {% for message in messages %}
+        <li{% if message.tags %} class="notification {{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<p>Cart items: {{ request.session.cart_items }}</p>
+
+{% block content %}
+{% endblock %}
