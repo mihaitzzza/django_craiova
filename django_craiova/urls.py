@@ -2,8 +2,13 @@ from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import render
+
+def my_view(request):
+    return render(request, 'cookies.html')
 
 urlpatterns = [
+    path('', view=my_view),
     path('admin/', admin.site.urls, name='admin_view'),
     path('users/', include('users.urls')),
     path('users/activate/', include('activation.urls')),

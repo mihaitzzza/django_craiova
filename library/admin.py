@@ -50,5 +50,10 @@ class PublishedBookAdmin(admin.ModelAdmin):
 
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "resource" and not request.user.is_superuser:
+            kwargs["queryset"] = Resource.objects.filter(user=request.user)
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
 
 admin.site.register(Book)

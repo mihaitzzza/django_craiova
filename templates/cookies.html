@@ -1,0 +1,12 @@
+{% load static %}
+{% load cookielaw_tags %}
+
+<html>
+    <head>
+        <script src="{% static 'cookielaw/js/cookielaw.js' %}"></script>
+    </head>
+    <body>
+        <p>This is my page!</p>
+        {% cookielaw_banner %}
+    </body>
+</html>
