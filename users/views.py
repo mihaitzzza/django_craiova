@@ -58,6 +58,18 @@ def profile(request):
 
 @login_required
 def profile_email(request):
+    if settings.IS_PRODUCTION:
+        avatar_path = '{MEDIA_ROOT}/{PROFILE_IMAGE}'.format(
+            MEDIA_ROOT=settings.MEDIA_ROOT,
+            PROFILE_IMAGE=request.user.profile.avatar
+        )
+    else:
+        avatar_path = '{BASE_DIR}/{MEDIA_ROOT}/{PROFILE_IMAGE}'.format(
+            BASE_DIR=settings.BASE_DIR,
+            MEDIA_ROOT=settings.MEDIA_ROOT,
+            PROFILE_IMAGE=request.user.profile.avatar
+        )
+
     email_template = get_template('users/email.html')
     email_content = email_template.render({
         'first_name': request.user.first_name,
@@ -71,11 +83,7 @@ def profile_email(request):
         [request.user.email]
     )
     mail.content_subtype = 'html'
-    mail.attach_file('{BASE_DIR}/{MEDIA_ROOT}/{PROFILE_IMAGE}'.format(
-        BASE_DIR=settings.BASE_DIR,
-        MEDIA_ROOT=settings.MEDIA_ROOT,
-        PROFILE_IMAGE=request.user.profile.avatar
-    ))
+    mail.attach_file(avatar_path)
     mail.send()
 
     return HttpResponseRedirect(reverse('users:profile'))
