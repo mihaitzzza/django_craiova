@@ -142,8 +142,6 @@ AUTH_USER_MODEL = 'users.MyUser'
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:profile'
 
-
-MEDIA_ROOT = 'media/'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
