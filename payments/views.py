@@ -118,7 +118,7 @@ def payment_failed(request):
     return HttpResponse('Payment failed! Try again :)')
 
 
-def x(request):
+def xz(request):
     print(f'{request.user.first_name} {request.user.last_name}')
     request.session['fullname'] = f'{request.user.first_name} {request.user.last_name}'
     return render(request, 'payments/template1.html', {

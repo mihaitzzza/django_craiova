@@ -7,7 +7,7 @@ from payments.views import (
     handle_payment_process,
     payment_done,
     payment_failed,
-    x,
+    xz,
     y,
     change_cart
 )
@@ -24,7 +24,7 @@ urlpatterns = [
     path('process/', view=handle_payment_process, name='process'),
     path('done/', view=payment_done, name='done'),
     path('failed/', view=payment_failed, name='failed'),
-    path('x/', view=x, name='x'),
+    path('x/', view=xz, name='x'),
     path('y/', view=y, name='y'),
     path('change/', view=change_cart, name='change_cart'),
 ]
