@@ -37,7 +37,7 @@ def activate(request, token):
             activation.save()
 
             email = user_with_password.email
-            password = user_with_password.password
+            password = form.cleaned_data['password']
 
             authenticated_user = authenticate(request, username=email, password=password)
             login(request, authenticated_user)
